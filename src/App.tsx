@@ -1,26 +1,31 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
+import {Grid, ThemeProvider} from "@mui/material";
+import theme from './themes/mainTheme'
+import MainPage from "./pages/Main";
+import {Route, Routes} from "react-router-dom";
+import About from "./pages/About";
+import TopBar from "./components/TopBar";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+const App = () => {
+    return (
+        <ThemeProvider theme={theme}>
+            <div style={{
+                backgroundColor: theme.palette.secondary.main,
+                height: '100vh',
+                alignItems: 'center',
+                flexDirection: 'column',
+                display: 'flex'
+            }}>
+                <Grid container justifyContent={"center"}><TopBar/></Grid>
+                <Routes>
+                    <Route path="/" element={<MainPage/>}/>
+                    <Route path="/about" element={<About/>}/>
+                </Routes>
+            </div>
+
+        </ThemeProvider>
+    );
 }
 
 export default App;
