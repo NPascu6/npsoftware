@@ -8,7 +8,9 @@ const mainTheme = createTheme({
         secondary: {
             main: '#152238',
         },
-        background: {}
+        background: {
+            default: '#0052cc'
+        }
     },
     loginButton: {
         background: '#0052cc',

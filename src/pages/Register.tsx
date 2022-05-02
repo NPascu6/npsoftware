@@ -1,12 +1,12 @@
 import {Button, Grid, IconButton, InputAdornment, TextField, useTheme} from "@mui/material";
 import {useState} from "react";
 import {Visibility, VisibilityOff} from "@mui/icons-material";
-import {logInWithEmailAndPassword} from "../services/firebase";
-import {setFirebaseUser} from "../store/slices/appSlice";
+import {registerWithEmailAndPassword} from "../services/firebase";
 import {useDispatch} from "react-redux";
-import {Link, useNavigate} from "react-router-dom";
+import {setFirebaseUser} from "../store/slices/appSlice";
+import {useNavigate} from "react-router-dom";
 
-const Login = () => {
+const Register = () => {
     const theme = useTheme()
     const [user, setUser] = useState<string>('')
     const [email, setEmail] = useState<string>('')
@@ -31,8 +31,8 @@ const Login = () => {
         return text.match(/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9]).*$/)
     }
 
-    const login = async () => {
-        let res: any = await logInWithEmailAndPassword(email, password);
+    const register = async () => {
+        let res: any = await registerWithEmailAndPassword(user, email, password);
         dispatch(setFirebaseUser(res))
         if (res) {
             navigate('/')
@@ -100,22 +100,18 @@ const Login = () => {
             />
         </Grid>
         <Grid item xs={12}>
-            <Button
-                disabled={(!validatePassword(password) && !validateUser(user) && !validateEmail(email)) ?? false}
-                onClick={login}
-                sx={{
-                    width: '100%',
-                    height: '100%',
-                    color: theme.loginButton.color,
-                    backgroundColor: theme.loginButton.background
-                }}>
-                Login
+            <Button disabled={(!validatePassword(password) && !validateUser(user) && !validateEmail(email)) ?? false}
+                    onClick={register}
+                    sx={{
+                        width: '100%',
+                        height: '100%',
+                        color: theme.loginButton.color,
+                        backgroundColor: theme.loginButton.background
+                    }}>
+                Register
             </Button>
         </Grid>
-        <div>
-            <Link to="/reset">Forgot Password</Link>
-        </div>
     </Grid>
 }
 
-export default Login
+export default Register

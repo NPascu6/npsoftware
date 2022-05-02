@@ -5,21 +5,27 @@ import theme from './themes/mainTheme'
 import MainPage from "./pages/Main";
 import About from "./pages/About";
 import TopBar from "./components/TopBar";
-import {Route, Routes, useNavigate,} from "react-router-dom";
+import {Route, Routes, useLocation, useNavigate,} from "react-router-dom";
 import Login from "./pages/Login";
 import {useSelector} from "react-redux";
 import {RootState} from "./store/slices/rootSlice";
+import Register from "./pages/Register";
+import Reset from "./pages/Reset";
 
 const App = () => {
-    const {user} = useSelector((state: RootState) => state.app);
+    const {firebaseUser} = useSelector((state: RootState) => state.app);
     const navigate = useNavigate()
+    const location = useLocation()
 
     useEffect(() => {
-        if (!user) {
+        if (!firebaseUser &&
+            location.pathname !== '/about' &&
+            location.pathname !== '/register' &&
+            location.pathname !== '/login' &&
+            location.pathname !== '/reset') {
             navigate('/login')
-        } else
-            navigate('/')
-    }, [user, navigate])
+        }
+    }, [firebaseUser, navigate, location.pathname])
 
     return (
         <ThemeProvider theme={theme}>
@@ -30,15 +36,16 @@ const App = () => {
                 flexDirection: 'column',
                 display: 'flex'
             }}>
-                {!user && <TopBar/>}
+                <TopBar/>
                 <Routes>
                     <Route path="/" element={<MainPage/>}/>
                     <Route path="/login" element={<Login/>}/>
+                    <Route path="/reset" element={<Reset/>}/>
+                    <Route path="/register" element={<Register/>}/>
                     <Route path="/about" element={<About type={'detailed'}/>}/>
                 </Routes>
-                {!user && <About type={'simple'}/>}
+                {!firebaseUser && location.pathname !== '/about' && <About type={'simple'}/>}
             </div>
-
         </ThemeProvider>
     );
 }
