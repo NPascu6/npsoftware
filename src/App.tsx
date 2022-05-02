@@ -38,6 +38,7 @@ const App = () => {
             }}>
                 <TopBar/>
                 <Routes>
+                    <Route path="*" element={<MainPage/>}/>
                     <Route path="/" element={<MainPage/>}/>
                     <Route path="/login" element={<Login/>}/>
                     <Route path="/reset" element={<Reset/>}/>
