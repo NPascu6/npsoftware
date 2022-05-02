@@ -1,7 +1,5 @@
-import Login from "./Login";
-
 const MainPage = () => {
-    return <Login/>
+    return <>Main Page</>
 }
 
 export default MainPage

@@ -11,7 +11,7 @@ const mainTheme = createTheme({
         background: {}
     },
     loginButton: {
-        background: '#6082B6',
+        background: '#0052cc',
         color: "#FFA500"
     },
     status: {

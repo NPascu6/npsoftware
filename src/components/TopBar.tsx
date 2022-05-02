@@ -1,52 +1,48 @@
+import {Button, Grid, useTheme} from "@mui/material";
 import {useNavigate} from "react-router-dom";
-import {Button, useTheme} from "@mui/material";
+import {useSelector} from "react-redux";
+import {RootState} from "../store/slices/rootSlice";
 
 const TopBar = () => {
-    const history = useNavigate();
     const theme = useTheme()
+    const navigate = useNavigate()
+    const {user} = useSelector((state: RootState) => state.app);
 
-    function navigate(url: string) {
-        history(url, {replace: true});
+    const navigateTo = (url: string) => {
+        navigate(url, {replace: true});
     }
 
     return <>
-        <div style={{
-            height: '30em',
-            width: '100em',
-            background: `url(/images/background.png)`
-        }}/>
-        <div style={{position: 'absolute', right: 0, margin: '0.5em'}}>
+        <Grid container sx={{height: '20em', justifyContent: 'center'}}>
+            <div style={{
+                height: '20em',
+                width: '100em',
+                overflow: 'hidden',
+                background: `url(/images/background.png)`
+            }}/>
+        </Grid>
+        {user && <div style={{position: 'absolute', right: 0, margin: '0.5em'}}>
             <Button
-                style={{
+                sx={{
                     width: '100%',
                     color: theme.loginButton.color,
                     backgroundColor: theme.loginButton.background,
                     marginTop: '0.5em'
                 }}
                 variant={"outlined"}
-                onClick={() => navigate("/")}>Home
+                onClick={() => navigateTo("/")}>Home
             </Button>
             <Button
-                style={{
+                sx={{
                     width: '100%',
                     color: theme.loginButton.color,
                     backgroundColor: theme.loginButton.background,
                     marginTop: '0.5em'
                 }}
                 variant={"outlined"}
-                onClick={() => navigate("/")}>More
+                onClick={() => navigateTo("/about")}>About
             </Button>
-            <Button
-                style={{
-                    width: '100%',
-                    color: theme.loginButton.color,
-                    backgroundColor: theme.loginButton.background,
-                    marginTop: '0.5em'
-                }}
-                variant={"outlined"}
-                onClick={() => navigate("../about")}>About
-            </Button>
-        </div>
+        </div>}
     </>
 }
 
