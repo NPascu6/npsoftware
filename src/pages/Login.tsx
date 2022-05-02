@@ -1,7 +1,6 @@
 import {Button, Grid, IconButton, InputAdornment, TextField, useTheme} from "@mui/material";
 import {useState} from "react";
 import {Visibility, VisibilityOff} from "@mui/icons-material";
-import About from "./About";
 
 const Login = () => {
     const theme = useTheme()
